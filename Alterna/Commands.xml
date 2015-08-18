@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet xml:lang="de-de" Name="de-de-CommandSet">
+
+    <AppName> Alterna </AppName>
+    <Example> Zeige meine Karte </Example>
+    
+    <Command Name="showMap">  
+      <Example>Zeige meine Karte</Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">Zeige [meine] Karte </ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified">Zeige [meine] {builtin:AppName} Karte </ListenFor>
+      <Feedback>Öffne Alterna Karte</Feedback>
+      <Navigate/>
+    </Command>
+    
+  </CommandSet>
+  </VoiceCommands>

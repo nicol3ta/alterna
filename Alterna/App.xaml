@@ -1,0 +1,16 @@
+﻿<Application
+    x:Class="Alterna.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Alterna"
+    RequestedTheme="Light">
+
+    <Application.Resources>
+        <Color x:Key="BlueColor">#B7D1DA</Color>
+        <Color x:Key="GreyBlueColor">#95A3A4</Color>
+        <LinearGradientBrush x:Key="BlueGradientBrush" StartPoint="0.146,0.854" EndPoint="0.854,0.146">
+            <GradientStop Color="{StaticResource BlueColor}" Offset="0"/>
+            <GradientStop Color="{StaticResource GreyBlueColor}" Offset="1"/>
+        </LinearGradientBrush>
+    </Application.Resources>
+</Application>

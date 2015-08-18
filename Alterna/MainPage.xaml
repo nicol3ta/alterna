@@ -1,0 +1,167 @@
+﻿<Page
+    x:Class="Alterna.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Alterna"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton Click="MapButton_Click" Icon="Map" Label="Karte"/>
+            <AppBarButton Icon="Microphone" Label="Spracheingabe"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+
+    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowSizes">
+                <VisualState x:Name="VeryNarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="10"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="image.Source" Value="Images/Claire_01.png"/>
+                        <Setter Target="image.Height" Value="200"/>
+                        <Setter Target="image.Width" Value="448"/>
+                        <Setter Target="image.Margin" Value="16,16,0,0"/>
+                        <Setter Target="title.(RelativePanel.Below)" Value="image"></Setter>
+                        <Setter Target="title.(RelativePanel.AlignLeftWithPanel)" Value="true"></Setter>
+                        <Setter Target="title.Margin" Value="16,16,0,0"/>
+
+                        <Setter Target="nameInput.(RelativePanel.Below)" Value="name"></Setter>
+                        <Setter Target="nameInput.(RelativePanel.AlignLeftWith)" Value="name"></Setter>
+                        <Setter Target="nameInput.Margin" Value="16,16,0,0"></Setter>
+                        <Setter Target="nameInput.Width" Value="380"></Setter>
+
+                        <Setter Target="street.Margin" Value="16,16,0,0"></Setter>
+
+                        <Setter Target="streetInput.(RelativePanel.Below)" Value="street"></Setter>
+                        <Setter Target="streetInput.(RelativePanel.AlignLeftWith)" Value="street"></Setter>
+                        <Setter Target="streetInput.Margin" Value="16,16,0,0"></Setter>
+
+                        <Setter Target="number.(RelativePanel.RightOf)" Value="streetInput"></Setter>
+                        <Setter Target="number.Margin" Value="16,16,0,0"></Setter>
+
+                        <Setter Target="numberInput.(RelativePanel.Below)" Value="number"></Setter>
+                        <Setter Target="numberInput.(RelativePanel.AlignLeftWith)" Value="number"></Setter>
+                        <Setter Target="numberInput.Margin" Value="16,16,0,0"></Setter>
+
+                        <Setter Target="code.Margin" Value="16,16,0,0"></Setter>
+                        <Setter Target="codeInput.(RelativePanel.Below)" Value="code"></Setter>
+                        <Setter Target="codeInput.(RelativePanel.AlignLeftWith)" Value="code"></Setter>
+                        <Setter Target="codeInput.Margin" Value="16,16,0,0"></Setter>
+
+                        <Setter Target="town.(RelativePanel.RightOf)" Value="codeInput"></Setter>
+                        <Setter Target="town.Margin" Value="16,16,0,0"></Setter>
+
+                        <Setter Target="townInput.(RelativePanel.Below)" Value="town"></Setter>
+                        <Setter Target="townInput.(RelativePanel.AlignLeftWith)" Value="town"></Setter>
+                        <Setter Target="townInput.Margin" Value="16,16,0,0"></Setter>
+
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="580"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="image.Source" Value="Images/Claire_01.png"/>
+                        <Setter Target="image.Height" Value="200"/>
+                        <Setter Target="image.Width" Value="448"/>
+                        <Setter Target="image.Margin" Value="16,16,0,0"/>
+                        <Setter Target="title.(RelativePanel.Below)" Value="image"></Setter>
+                        <Setter Target="title.(RelativePanel.AlignLeftWithPanel)" Value="true"></Setter>
+                        <Setter Target="title.Margin" Value="16,16,0,0"/>
+                        
+                        
+                    </VisualState.Setters>
+                </VisualState>
+
+
+                <VisualState x:Name="MediumState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="860"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        
+                        <Setter Target="image.(Width)" Value="500"/>
+                        <Setter Target="image.(Height)" Value="700"/>
+                        <Setter Target="title.(RelativePanel.RightOf)" Value="image"></Setter>
+                        <Setter Target="title.(RelativePanel.AlignLeftWithPanel)" Value="false"></Setter>
+                        
+                        <Setter Target="nameInput.(RelativePanel.Below)" Value="name"></Setter>
+                        <Setter Target="nameInput.(RelativePanel.AlignLeftWith)" Value="name"></Setter>
+                        <Setter Target="nameInput.Margin" Value="16,16,0,0"></Setter>
+                        <Setter Target="nameInput.Width" Value="380"></Setter>
+
+                        <Setter Target="street.Margin" Value="16,16,0,0"></Setter>
+                        
+                        <Setter Target="streetInput.(RelativePanel.Below)" Value="street"></Setter>
+                        <Setter Target="streetInput.(RelativePanel.AlignLeftWith)" Value="street"></Setter>
+                        <Setter Target="streetInput.Margin" Value="16,16,0,0"></Setter>
+
+                        <Setter Target="number.(RelativePanel.RightOf)" Value="streetInput"></Setter>
+                        <Setter Target="number.Margin" Value="16,16,0,0"></Setter>
+
+                        <Setter Target="numberInput.(RelativePanel.Below)" Value="number"></Setter>
+                        <Setter Target="numberInput.(RelativePanel.AlignLeftWith)" Value="number"></Setter>
+                        <Setter Target="numberInput.Margin" Value="16,16,0,0"></Setter>
+
+                        <Setter Target="code.Margin" Value="16,16,0,0"></Setter>
+                        <Setter Target="codeInput.(RelativePanel.Below)" Value="code"></Setter>
+                        <Setter Target="codeInput.(RelativePanel.AlignLeftWith)" Value="code"></Setter>
+                        <Setter Target="codeInput.Margin" Value="16,16,0,0"></Setter>
+
+                        <Setter Target="town.(RelativePanel.RightOf)" Value="codeInput"></Setter>
+                        <Setter Target="town.Margin" Value="16,16,0,0"></Setter>
+
+                        <Setter Target="townInput.(RelativePanel.Below)" Value="town"></Setter>
+                        <Setter Target="townInput.(RelativePanel.AlignLeftWith)" Value="town"></Setter>
+                        <Setter Target="townInput.Margin" Value="16,16,0,0"></Setter>
+
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1100"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="image.(Width)" Value="588"/>
+                        <Setter Target="image.(Height)" Value="700"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Image x:Name="image" Source="Images/Claire_02.png" RelativePanel.AlignLeftWithPanel="True" Height="700" Margin="8,16,0,0" Width="588" />
+
+        <TextBlock x:Name="title" RelativePanel.RightOf="image" Margin="16,88,0,0" TextWrapping="Wrap" Text="Lieblingsort hinzufügen" FontFamily="Segoe UI Light" FontSize="32"/>
+        <TextBlock x:Name="name"  RelativePanel.Below="title" RelativePanel.AlignLeftWith="title" Margin="16,60,0,0" TextWrapping="Wrap" Text="Name" FontSize="20"/>
+        <TextBox x:Name="nameInput" RelativePanel.Below="title" RelativePanel.RightOf="name" Margin="28,60,0,0" TextWrapping="Wrap" Width="432" FontSize="20" AcceptsReturn="True"/>
+        
+        <TextBlock x:Name="street" RelativePanel.Below="nameInput" RelativePanel.AlignLeftWith="title" Margin="16,56,0,0" TextWrapping="Wrap" Text="Strasse" FontSize="20"/>
+        <TextBox x:Name="streetInput" RelativePanel.Below="nameInput" RelativePanel.RightOf="street" Margin="16,40,0,0" TextWrapping="Wrap" Width="300" FontSize="20" AcceptsReturn="True"/>
+        
+        <TextBlock x:Name="number" RelativePanel.Below="nameInput" RelativePanel.RightOf="streetInput" Margin="24,56,0,0" Text="Nr." FontSize="20"/>
+        <TextBox x:Name="numberInput" RelativePanel.Below="nameInput" RelativePanel.RightOf="number" Margin="24,40,0,0" Text=""  FontSize="20" AcceptsReturn="True"/>
+
+        <TextBlock x:Name="code" RelativePanel.Below="numberInput" RelativePanel.AlignLeftWith="title" Margin="16,56,0,0" TextWrapping="Wrap" Text="PLZ" FontSize="20"/>
+        <TextBox x:Name="codeInput" RelativePanel.Below="numberInput" RelativePanel.RightOf="code" Margin="44,40,0,0" Text="" TextWrapping="Wrap" FontSize="20" AcceptsReturn="True"/>
+
+        <TextBlock x:Name="town" RelativePanel.Below="streetInput" RelativePanel.RightOf="codeInput" Margin="24,56,0,0" Text="Ort" FontSize="20"/>
+        <TextBox x:Name="townInput" RelativePanel.Below="numberInput" RelativePanel.RightOf="town" Margin="24,40,0,0" TextWrapping="Wrap" Width="300" FontSize="20" AcceptsReturn="True"/>
+       
+
+        <Button x:Name="button" Content="Speichern" RelativePanel.RightOf="image" RelativePanel.AlignLeftWith="title" RelativePanel.Below="townInput" Margin="16,60,0,0" Height="55" Width="163" FontSize="20" Click="button_Click"/>
+        
+    </RelativePanel>
+   
+</Page>
