@@ -21,6 +21,7 @@
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WindowSizes">
+
                 <VisualState x:Name="VeryNarrowState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="10"/>
@@ -63,46 +64,45 @@
                         <Setter Target="townInput.(RelativePanel.Below)" Value="town"></Setter>
                         <Setter Target="townInput.(RelativePanel.AlignLeftWith)" Value="town"></Setter>
                         <Setter Target="townInput.Margin" Value="16,16,0,0"></Setter>
-
-
                     </VisualState.Setters>
                 </VisualState>
+
+
                 <VisualState x:Name="NarrowState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="580"/>
+                        <AdaptiveTrigger MinWindowWidth="580" />
+                        
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="image.Source" Value="Images/Claire_01.png"/>
-                        <Setter Target="image.Height" Value="200"/>
-                        <Setter Target="image.Width" Value="448"/>
-                        <Setter Target="image.Margin" Value="16,16,0,0"/>
+                        <Setter Target="image.Source" Value="Images/Claire_01.png" />
+                        <Setter Target="image.Height" Value="200" />
+                        <Setter Target="image.Width" Value="448" />
+                        <Setter Target="image.Margin" Value="16,16,0,0" />
                         <Setter Target="title.(RelativePanel.Below)" Value="image"></Setter>
                         <Setter Target="title.(RelativePanel.AlignLeftWithPanel)" Value="true"></Setter>
-                        <Setter Target="title.Margin" Value="16,16,0,0"/>
-                        
-                        
+                        <Setter Target="title.Margin" Value="16,16,0,0" />
+                       
                     </VisualState.Setters>
                 </VisualState>
-
-
+                
                 <VisualState x:Name="MediumState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="860"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        
+
                         <Setter Target="image.(Width)" Value="500"/>
                         <Setter Target="image.(Height)" Value="700"/>
                         <Setter Target="title.(RelativePanel.RightOf)" Value="image"></Setter>
                         <Setter Target="title.(RelativePanel.AlignLeftWithPanel)" Value="false"></Setter>
-                        
+
                         <Setter Target="nameInput.(RelativePanel.Below)" Value="name"></Setter>
                         <Setter Target="nameInput.(RelativePanel.AlignLeftWith)" Value="name"></Setter>
                         <Setter Target="nameInput.Margin" Value="16,16,0,0"></Setter>
                         <Setter Target="nameInput.Width" Value="380"></Setter>
 
                         <Setter Target="street.Margin" Value="16,16,0,0"></Setter>
-                        
+
                         <Setter Target="streetInput.(RelativePanel.Below)" Value="street"></Setter>
                         <Setter Target="streetInput.(RelativePanel.AlignLeftWith)" Value="street"></Setter>
                         <Setter Target="streetInput.Margin" Value="16,16,0,0"></Setter>
@@ -140,6 +140,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        
 
         <Image x:Name="image" Source="Images/Claire_02.png" RelativePanel.AlignLeftWithPanel="True" Height="700" Margin="8,16,0,0" Width="588" />
 

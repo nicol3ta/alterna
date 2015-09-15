@@ -8,11 +8,27 @@
     
     <Command Name="showMap">  
       <Example>Zeige meine Karte</Example>
-      <ListenFor RequireAppName="BeforeOrAfterPhrase">Zeige [meine] Karte </ListenFor>
-      <ListenFor RequireAppName="ExplicitlySpecified">Zeige [meine] {builtin:AppName} Karte </ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">Zeige [mir] [meine] Karte </ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified">Zeige [mir] [meine] {builtin:AppName} Karte </ListenFor>
       <Feedback>Öffne Alterna Karte</Feedback>
-      <Navigate/>
+      <Navigate />
     </Command>
+
+    <Command Name="showLocations">
+      <Example>Suche Bars in meiner Nähe</Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">Zeige {Bars} in meiner Nähe </ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">Suche {Bars} in meiner Nähe </ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified">Zeige [mir] {builtin:AppName} {Bars} in München</ListenFor>
+      <Feedback>Suche Orte</Feedback>
+      <VoiceCommandService Target="AlternaService" />
+    </Command>
+
+    <PhraseList Label="Bars">
+      <Item>Orte</Item>
+      <Item>Locations</Item>
+      <Item>Restaurants</Item>
+      <Item>Cafes</Item>
+    </PhraseList>
     
   </CommandSet>
   </VoiceCommands>

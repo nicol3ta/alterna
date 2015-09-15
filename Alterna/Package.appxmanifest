@@ -15,11 +15,19 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Alterna.App">
-      <uap:VisualElements DisplayName="Alterna" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Alterna" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="Alterna" Square150x150Logo="Assets\AlternaSquare150x150Logo.png" Square44x44Logo="Assets\AlternaSquare44x44Logo.png" Description="Alterna" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:SplashScreen Image="Assets\AlternaSplashScreen.png" />
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.appService" EntryPoint="AlternaVoiceCommandService.AlternaService">
+          <uap:AppService Name="AlternaService" />
+        </uap:Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

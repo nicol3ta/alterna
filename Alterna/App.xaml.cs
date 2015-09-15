@@ -1,20 +1,11 @@
 ﻿using Microsoft.WindowsAzure.MobileServices;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Media.SpeechRecognition;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Alterna
@@ -95,11 +86,18 @@ namespace Alterna
         private async void RegisterVoiceCommands()
         {
 
-            var storageFile =
-              await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(
-                new Uri("ms-appx:///Commands.xml"));
-            await
-              Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile);
+            //  var storageFile =
+            //    await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(
+            //      new Uri("ms-appx:///Commands.xml"));
+            //  await
+            //    Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile);
+
+            // Install the main VCD. Since there's no simple way to test that the VCD has been imported, or that it's your most recent
+            // version, it's not unreasonable to do this upon app load.
+            StorageFile vcdStorageFile = await Package.Current.InstalledLocation.GetFileAsync(@"Commands.xml");
+
+            await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdStorageFile);
+
         }
 
         /// <summary>
@@ -136,14 +134,26 @@ namespace Alterna
             }
 
             if (e.Kind == ActivationKind.VoiceCommand)
-                {
-                    var commandArgs = e as VoiceCommandActivatedEventArgs;
-                    SpeechRecognitionResult speechRecognitionResult = commandArgs.Result;
-                    string voiceCommandName = speechRecognitionResult.RulePath[0];
-                    if (voiceCommandName == "showMap")
-                        rootFrame.Navigate(typeof(MapPage), speechRecognitionResult);
-                }
-                Window.Current.Activate();
+            {
+                var commandArgs = e as VoiceCommandActivatedEventArgs;
+                SpeechRecognitionResult speechRecognitionResult = commandArgs.Result;
+                string voiceCommandName = speechRecognitionResult.RulePath[0];
+                if (voiceCommandName == "showMap")
+                    rootFrame.Navigate(typeof(MapPage), speechRecognitionResult);
+            }
+
+            else if (e.Kind == ActivationKind.Protocol)
+            {
+                // Extract the launch context.
+                var commandArgs = e as ProtocolActivatedEventArgs;
+                Windows.Foundation.WwwFormUrlDecoder decoder = new Windows.Foundation.WwwFormUrlDecoder(commandArgs.Uri.Query);
+                var page = decoder.GetFirstValueByName("LaunchContext");
+
+                rootFrame.Navigate(typeof(MapPage));
+            }
+
+
+            Window.Current.Activate();
             }
         }
 

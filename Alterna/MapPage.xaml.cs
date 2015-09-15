@@ -7,13 +7,14 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.Devices.Geolocation;
 using Windows.Media.SpeechRecognition;
-using Alterna.DataModel;
 using Microsoft.WindowsAzure.MobileServices;
 using Windows.UI.Popups;
 using Windows.Services.Maps;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using Windows.Storage.Streams;
+using AlternaDataModel;
 
 namespace Alterna
 {
@@ -44,7 +45,7 @@ namespace Alterna
                 }
                 else if (commandMode == "text")
                 {
-                    // Handle text command
+                    //Handle text command
                 }
             }
 
@@ -55,7 +56,7 @@ namespace Alterna
             this.GetLocations(addressTable);
             // Set map location
             MapControl1.Center = cityCenter;
-            MapControl1.ZoomLevel = 14;
+            MapControl1.ZoomLevel = 16;
             MapControl1.LandmarksVisible = true;
         }
 
@@ -110,10 +111,12 @@ namespace Alterna
         /// <param name="title">Title of the map icon</param>
         private void AddMapIcon(Geopoint point, String title)
         {
+
             MapIcon mapIcon = new MapIcon();
             mapIcon.Location = point;
             mapIcon.NormalizedAnchorPoint = new Point(0.5, 1.0);
             mapIcon.Title = title;
+            //mapIcon.Image = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Images/gaspump_mapicon_small.png"));
             MapControl1.MapElements.Add(mapIcon);
         }
 
@@ -125,7 +128,6 @@ namespace Alterna
         /// <returns>Location of the address as Geopoint</returns>
         private async Task<Geopoint> Geocode(string address)
         {
-
             // Nearby location to use as a query hint.
             BasicGeoposition queryHint = new BasicGeoposition();
             queryHint.Latitude = 48.1333;

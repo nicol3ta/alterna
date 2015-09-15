@@ -1,10 +1,14 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Alterna.DataModel
+namespace AlternaDataModel
 {
-    class Address
+    public class Address
     {
-
         public string Id { get; set; }
 
         [JsonProperty(PropertyName = "name")]
@@ -21,6 +25,6 @@ namespace Alterna.DataModel
 
         [JsonProperty(PropertyName = "city")]
         public string City { get; set; }
-        
+
     }
 }

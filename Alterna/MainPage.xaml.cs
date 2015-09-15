@@ -1,4 +1,4 @@
-﻿using Alterna.DataModel;
+﻿using AlternaDataModel;
 using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.Threading.Tasks;
