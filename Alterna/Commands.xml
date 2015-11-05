@@ -18,7 +18,7 @@
       <Example>Suche Bars in meiner Nähe</Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase">Zeige {Bars} in meiner Nähe </ListenFor>
       <ListenFor RequireAppName="BeforeOrAfterPhrase">Suche {Bars} in meiner Nähe </ListenFor>
-      <ListenFor RequireAppName="ExplicitlySpecified">Zeige [mir] {builtin:AppName} {Bars} in München</ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified">Zeige [mir] {builtin:AppName} {Bars} in meiner Nähe</ListenFor>
       <Feedback>Suche Orte</Feedback>
       <VoiceCommandService Target="AlternaService" />
     </Command>
@@ -28,7 +28,47 @@
       <Item>Locations</Item>
       <Item>Restaurants</Item>
       <Item>Cafes</Item>
+      <Item>Bars</Item>
     </PhraseList>
     
+  </CommandSet>
+
+  <CommandSet xml:lang="en-us" Name="en-us-CommandSet">
+
+    <AppName> Alterna </AppName>
+    <Example> Show my map </Example>
+
+    <Command Name="showMap">
+      <Example>Show my map</Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">Show [me] [my] map </ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified">Show [me] [my] {builtin:AppName} map </ListenFor>
+      <Feedback>Opening Alterna map</Feedback>
+      <Navigate />
+    </Command>
+
+    <Command Name="showLocations">
+      <Example>Search for locations near me</Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase">{Find} {Bars} near me </ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified">Search for {builtin:AppName} {Bars} near me</ListenFor>
+      <Feedback>Searching locations</Feedback>
+      <VoiceCommandService Target="AlternaService" />
+    </Command>
+
+    <PhraseList Label="Find">
+      <Item>Find</Item>
+      <Item>Look</Item>
+      <Item>Search for</Item>
+      <Item>Look up</Item>
+      <Item>Show</Item>
+    </PhraseList>
+    
+    <PhraseList Label="Bars">
+      <Item>Places</Item>
+      <Item>Locations</Item>
+      <Item>Restaurants</Item>
+      <Item>Cafes</Item>
+      <Item>Bars</Item>
+    </PhraseList>
+
   </CommandSet>
   </VoiceCommands>

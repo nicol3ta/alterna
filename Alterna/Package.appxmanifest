@@ -27,6 +27,7 @@
         <uap:Extension Category="windows.appService" EntryPoint="AlternaVoiceCommandService.AlternaService">
           <uap:AppService Name="AlternaService" />
         </uap:Extension>
+        <uap:Extension Category="windows.personalAssistantLaunch"/>
       </Extensions>
     </Application>
   </Applications>

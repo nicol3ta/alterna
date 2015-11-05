@@ -1,5 +1,6 @@
 ﻿using Microsoft.WindowsAzure.MobileServices;
 using System;
+using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Media.SpeechRecognition;
@@ -85,18 +86,8 @@ namespace Alterna
 
         private async void RegisterVoiceCommands()
         {
-
-            //  var storageFile =
-            //    await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(
-            //      new Uri("ms-appx:///Commands.xml"));
-            //  await
-            //    Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile);
-
-            // Install the main VCD. Since there's no simple way to test that the VCD has been imported, or that it's your most recent
-            // version, it's not unreasonable to do this upon app load.
-            StorageFile vcdStorageFile = await Package.Current.InstalledLocation.GetFileAsync(@"Commands.xml");
-
-            await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdStorageFile);
+          StorageFile vcdStorageFile = await Package.Current.InstalledLocation.GetFileAsync(@"Commands.xml");
+          await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdStorageFile);
 
         }
 
@@ -132,6 +123,7 @@ namespace Alterna
                 rootFrame = new Frame();
                 Window.Current.Content = rootFrame;
             }
+           
 
             if (e.Kind == ActivationKind.VoiceCommand)
             {
@@ -145,6 +137,7 @@ namespace Alterna
             else if (e.Kind == ActivationKind.Protocol)
             {
                 // Extract the launch context.
+             
                 var commandArgs = e as ProtocolActivatedEventArgs;
                 Windows.Foundation.WwwFormUrlDecoder decoder = new Windows.Foundation.WwwFormUrlDecoder(commandArgs.Uri.Query);
                 var page = decoder.GetFirstValueByName("LaunchContext");

@@ -18,13 +18,31 @@
         </CommandBar>
     </Page.BottomAppBar>
 
-    <Grid x:Name="pageGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <RelativePanel>
 
-        <Maps:MapControl
-       x:Name="MapControl1"            
-       ZoomInteractionMode="GestureAndControl"
-       TiltInteractionMode="GestureAndControl"   
-       MapServiceToken="sjnBhMeP9zE67Qca9ElD~XHWrADhApRJaVSEYRYzk3g~Akz2qtxqOuKLfRqkTAfqx3h6Ct6H3FFHzJWewZRG_fGXSRj1hBqW64AJoVJUSTtd"/>
+        <Grid x:Name="LogoStackPanel"
+              Background="#FFE6E6E6"
+              RelativePanel.AlignRightWithPanel="True"
+              RelativePanel.AlignLeftWithPanel="True">
 
-    </Grid>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Image Height="24"
+                       Margin="8,0,0,0"
+                       Source="Images/alterna_logo03.png" />
+            </StackPanel>
+        </Grid>
+
+        <MediaElement Name="mediaPlayer"></MediaElement>
+
+        <Grid RelativePanel.Below="LogoStackPanel"
+              RelativePanel.AlignRightWithPanel="True"
+              RelativePanel.AlignLeftWithPanel="True"
+              RelativePanel.AlignBottomWithPanel="True">
+        <Maps:MapControl x:Name="MapControl1"
+                         ZoomInteractionMode="GestureAndControl"
+                         TiltInteractionMode="GestureAndControl"
+                         MapServiceToken="sjnBhMeP9zE67Qca9ElD~XHWrADhApRJaVSEYRYzk3g~Akz2qtxqOuKLfRqkTAfqx3h6Ct6H3FFHzJWewZRG_fGXSRj1hBqW64AJoVJUSTtd" />
+        </Grid>
+    </RelativePanel>
 </Page>

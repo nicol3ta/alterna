@@ -140,28 +140,44 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
 
-        <Image x:Name="image" Source="Images/Claire_02.png" RelativePanel.AlignLeftWithPanel="True" Height="700" Margin="8,16,0,0" Width="588" />
+        <Grid x:Name="LogoStackPanel"
+              Background="#FFE6E6E6"
+              RelativePanel.AlignRightWithPanel="True"
+              RelativePanel.AlignLeftWithPanel="True">
 
-        <TextBlock x:Name="title" RelativePanel.RightOf="image" Margin="16,88,0,0" TextWrapping="Wrap" Text="Lieblingsort hinzufügen" FontFamily="Segoe UI Light" FontSize="32"/>
-        <TextBlock x:Name="name"  RelativePanel.Below="title" RelativePanel.AlignLeftWith="title" Margin="16,60,0,0" TextWrapping="Wrap" Text="Name" FontSize="20"/>
-        <TextBox x:Name="nameInput" RelativePanel.Below="title" RelativePanel.RightOf="name" Margin="28,60,0,0" TextWrapping="Wrap" Width="432" FontSize="20" AcceptsReturn="True"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Image Height="24"
+                       Margin="8,0,0,0"
+                       Source="Images/alterna_logo03.png" />
+            </StackPanel>
+        </Grid>
+
+        <Image x:Name="image" Source="Images/Claire_02.png" RelativePanel.AlignLeftWithPanel="True" 
+               RelativePanel.Below="LogoStackPanel" Height="700" Margin="8,16,0,0" Width="588" />
+
+        <TextBlock x:Name="title" RelativePanel.RightOf="image" Margin="16,88,0,0" TextWrapping="Wrap" Text="Lieblingsort hinzufügen"
+                   FontSize="28"/>
+        <TextBlock x:Name="name"  RelativePanel.Below="title" RelativePanel.AlignLeftWith="title" Margin="16,40,0,0" TextWrapping="Wrap" Text="Name" FontSize="18"/>
+        <TextBox x:Name="nameInput" RelativePanel.Below="title" RelativePanel.RightOf="name" Margin="28,40,0,0" TextWrapping="Wrap" Width="432" FontSize="20" AcceptsReturn="True"/>
         
-        <TextBlock x:Name="street" RelativePanel.Below="nameInput" RelativePanel.AlignLeftWith="title" Margin="16,56,0,0" TextWrapping="Wrap" Text="Strasse" FontSize="20"/>
+        <TextBlock x:Name="street" RelativePanel.Below="nameInput" RelativePanel.AlignLeftWith="title" Margin="16,56,0,0" TextWrapping="Wrap" Text="Straße" FontSize="18"/>
         <TextBox x:Name="streetInput" RelativePanel.Below="nameInput" RelativePanel.RightOf="street" Margin="16,40,0,0" TextWrapping="Wrap" Width="300" FontSize="20" AcceptsReturn="True"/>
         
-        <TextBlock x:Name="number" RelativePanel.Below="nameInput" RelativePanel.RightOf="streetInput" Margin="24,56,0,0" Text="Nr." FontSize="20"/>
+        <TextBlock x:Name="number" RelativePanel.Below="nameInput" RelativePanel.RightOf="streetInput" Margin="24,56,0,0" Text="Nr." FontSize="18"/>
         <TextBox x:Name="numberInput" RelativePanel.Below="nameInput" RelativePanel.RightOf="number" Margin="24,40,0,0" Text=""  FontSize="20" AcceptsReturn="True"/>
 
-        <TextBlock x:Name="code" RelativePanel.Below="numberInput" RelativePanel.AlignLeftWith="title" Margin="16,56,0,0" TextWrapping="Wrap" Text="PLZ" FontSize="20"/>
+        <TextBlock x:Name="code" RelativePanel.Below="numberInput" RelativePanel.AlignLeftWith="title" Margin="16,56,0,0" TextWrapping="Wrap" Text="PLZ" FontSize="18"/>
         <TextBox x:Name="codeInput" RelativePanel.Below="numberInput" RelativePanel.RightOf="code" Margin="44,40,0,0" Text="" TextWrapping="Wrap" FontSize="20" AcceptsReturn="True"/>
 
-        <TextBlock x:Name="town" RelativePanel.Below="streetInput" RelativePanel.RightOf="codeInput" Margin="24,56,0,0" Text="Ort" FontSize="20"/>
+        <TextBlock x:Name="town" RelativePanel.Below="streetInput" RelativePanel.RightOf="codeInput" Margin="24,56,0,0" Text="Ort" FontSize="18"/>
         <TextBox x:Name="townInput" RelativePanel.Below="numberInput" RelativePanel.RightOf="town" Margin="24,40,0,0" TextWrapping="Wrap" Width="300" FontSize="20" AcceptsReturn="True"/>
        
 
-        <Button x:Name="button" Content="Speichern" RelativePanel.RightOf="image" RelativePanel.AlignLeftWith="title" RelativePanel.Below="townInput" Margin="16,60,0,0" Height="55" Width="163" FontSize="20" Click="button_Click"/>
+        <Button x:Name="button" Content="Speichern" RelativePanel.RightOf="image" RelativePanel.AlignLeftWith="title" RelativePanel.Below="townInput" Margin="16,40,0,0" Height="55" Width="163" FontSize="18" Click="button_Click"/>
+
+        <Frame x:Name="MapFrame"></Frame>
         
     </RelativePanel>
    

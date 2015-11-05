@@ -69,7 +69,6 @@ namespace AlternaVoiceCommandService
                 {
                     Debug.WriteLine("Handling Voice Command failed " + ex.ToString());
                 }
-
             }
         }
 
@@ -99,11 +98,17 @@ namespace AlternaVoiceCommandService
             // First, create the VoiceCommandUserMessage with the strings 
             // that Cortana will show and speak.
             var userMessage = new VoiceCommandUserMessage();
+            
+
             userMessage.DisplayMessage = "Hier sind ein paar Orte in Deiner Nähe.";
             userMessage.SpokenMessage = "Orte in Deiner Nähe.";
-            string loadingLocations = "Suche nach Orte";
-            await ShowProgressScreen(loadingLocations);
 
+            string loadingLocations = "Suche nach Orte";
+            
+            
+            await ShowProgressScreen(loadingLocations);
+                   
+            
             var locationsContentTiles = new List<VoiceCommandContentTile>();
 
             MobileServiceInvalidOperationException exception = null;

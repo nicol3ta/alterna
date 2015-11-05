@@ -121,6 +121,8 @@
     <None Include="Alterna_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\alterna_logo02.png" />
+    <Content Include="Images\alterna_logo03.png" />
     <Content Include="Images\Claire_01.png" />
     <Content Include="Images\Claire_02.png" />
     <Content Include="Images\gaspump_mapicon_small.png" />

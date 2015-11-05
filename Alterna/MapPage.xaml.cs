@@ -15,6 +15,9 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Windows.Storage.Streams;
 using AlternaDataModel;
+using Windows.Media.SpeechSynthesis;
+using Windows.UI.Xaml.Media;
+using System.Linq;
 
 namespace Alterna
 {
@@ -27,37 +30,43 @@ namespace Alterna
         private IMobileServiceTable<Address> addressTable = App.MobileService.GetTable<Address>();
         private ICollection<Geopoint> points = new Collection<Geopoint>();
 
+        private int numberOfLocations;
+
         public MapPage()
         {
             this.InitializeComponent();
+
+            numberOfLocations = 0;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            // Specify the location
+            Geoposition currentPosition = await getCurrentLocation();
+            BasicGeoposition cityPosition = new BasicGeoposition() { Latitude = currentPosition.Coordinate.Point.Position.Latitude, Longitude = currentPosition.Coordinate.Point.Position.Longitude };
+            Geopoint cityCenter = new Geopoint(cityPosition);
+
+            // Get saved locations
+            await GetLocations(addressTable);
+            // Set map location
+            MapControl1.Center = cityCenter;
+            MapControl1.ZoomLevel = 14;
+            MapControl1.LandmarksVisible = true;
+
             SpeechRecognitionResult vcResult = e.Parameter as SpeechRecognitionResult;
-            if(vcResult != null)
+            if (vcResult != null)
             {
                 string commandMode = vcResult.SemanticInterpretation.Properties["commandMode"][0];
 
-                if(commandMode == "voice") //Did the user speak or type the command?
+                if (commandMode == "voice") //Did the user speak or type the command?
                 {
-                    //Handle voice command
+                    HandleVoiceCommand();
                 }
                 else if (commandMode == "text")
                 {
                     //Handle text command
                 }
             }
-
-            // Specify a known location
-            BasicGeoposition cityPosition = new BasicGeoposition() { Latitude = 48.1333, Longitude = 11.5615 };
-            Geopoint cityCenter = new Geopoint(cityPosition);
-            // Get saved locations
-            this.GetLocations(addressTable);
-            // Set map location
-            MapControl1.Center = cityCenter;
-            MapControl1.ZoomLevel = 16;
-            MapControl1.LandmarksVisible = true;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -69,7 +78,7 @@ namespace Alterna
         /// Gets saved locations from table and adds them to the map
         /// <param name="addressTable"></param>
         /// </summary>
-        private async void GetLocations(IMobileServiceTable<Address> addressTable)
+        private async Task GetLocations(IMobileServiceTable<Address> addressTable)
        {
             MobileServiceInvalidOperationException exception = null;
             try
@@ -98,6 +107,8 @@ namespace Alterna
                         points.Add(newLocation);
                         // Add a map icon of the location to the map
                         AddMapIcon(newLocation, item.Name);
+
+                        numberOfLocations++;
                     }                
                 }
             }
@@ -159,6 +170,72 @@ namespace Alterna
             return null;
         }
 
+
+        private async Task<Geoposition> getCurrentLocation()
+        {
+            try
+            {
+                // Request permission to access location
+                var accessStatus = await Geolocator.RequestAccessAsync();
+
+                switch (accessStatus)
+                {
+                    case GeolocationAccessStatus.Allowed:
+                        Geolocator geolocator = new Geolocator();
+
+                        // Carry out the operation
+                        Geoposition pos = await geolocator.GetGeopositionAsync();
+                        return pos;   
+                    case GeolocationAccessStatus.Denied:
+                        Debug.WriteLine("Access to location is denied.");
+                        break;
+                    case GeolocationAccessStatus.Unspecified:
+                        Debug.WriteLine("Unspecified error.");
+                        break;                   
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                Debug.WriteLine("Cancelled");
+                
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+            return null;
+        }
+
+        private async void HandleVoiceCommand()
+        { 
+             try 
+             { 
+                 //Text to speech 
+                 await SpeakText("Es befinden sich" + numberOfLocations+ "Alterna Orte in deiner Nähe"); 
+             } 
+             catch (Exception exception) 
+             { 
+                 Debug.WriteLine("Exception: " + exception.Message); 
+             }
+        } 
+
+        //The object for controlling the speech synthesis object (voice) 
+         private async Task SpeakText(string textToSpeak)
+         { 
+             using (var speech = new SpeechSynthesizer()) 
+             { 
+ 
+ 
+                 //Retrieve the first German female voice 
+                 speech.Voice = SpeechSynthesizer.AllVoices.First(i => (i.Gender == VoiceGender.Female && i.Description.Contains("Germany"))); 
+                 //Generate audio streams from plain text 
+                 SpeechSynthesisStream ttsStream = await speech.SynthesizeTextToStreamAsync(textToSpeak); 
+                 mediaPlayer.SetSource(ttsStream, ttsStream.ContentType); 
+                 mediaPlayer.Play();  
+             } 
+         }
+
+        
 
     }
 }
