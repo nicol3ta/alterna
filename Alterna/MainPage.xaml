@@ -12,7 +12,7 @@
                 <Grid/>
             </CommandBar.Content>
             <AppBarButton Click="MapButton_Click" Icon="Map" Label="Karte"/>
-            <AppBarButton Icon="Microphone" Label="Spracheingabe"/>
+            <AppBarButton Click="MicroButton_Click" Icon="Microphone" Label="Spracheingabe"/>
         </CommandBar>
     </Page.BottomAppBar>
 

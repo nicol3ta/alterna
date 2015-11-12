@@ -14,7 +14,7 @@
                 <Grid/>
             </CommandBar.Content>
             <AppBarButton Click="AddButton_Click" Icon="Add" Label="Neuer Ort"/>
-            <AppBarButton Icon="Microphone" Label="Spracheingabe"/>
+            <AppBarButton Click="MicroButton_Click" Icon="Microphone" Label="Spracheingabe"/>
         </CommandBar>
     </Page.BottomAppBar>
 

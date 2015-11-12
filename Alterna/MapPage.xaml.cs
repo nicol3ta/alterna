@@ -31,6 +31,7 @@ namespace Alterna
         private ICollection<Geopoint> points = new Collection<Geopoint>();
 
         private int numberOfLocations;
+        private SpeechRecognizer recognizer;
 
         public MapPage()
         {
@@ -224,18 +225,112 @@ namespace Alterna
          { 
              using (var speech = new SpeechSynthesizer()) 
              { 
- 
- 
                  //Retrieve the first German female voice 
                  speech.Voice = SpeechSynthesizer.AllVoices.First(i => (i.Gender == VoiceGender.Female && i.Description.Contains("Germany"))); 
                  //Generate audio streams from plain text 
                  SpeechSynthesisStream ttsStream = await speech.SynthesizeTextToStreamAsync(textToSpeak); 
                  mediaPlayer.SetSource(ttsStream, ttsStream.ContentType); 
-                 mediaPlayer.Play();  
+                 mediaPlayer.Play();
+           
+            } 
+         }
+
+
+        private async Task Listen(bool withUI)
+         { 
+             try 
+             { 
+                 //Perform speech recognition 
+                 SpeechRecognitionResult speechRecognitionResult = await RecognizeSpeech(); 
+                 //Check the confidence level of the specch recognition attempt 
+                 if (speechRecognitionResult.Confidence == SpeechRecognitionConfidence.Rejected) 
+                 { 
+                     await SpeakText("Ich habe leider nicht verstanden. Kannst Du bitte wiederholen?"); 
+                 } 
+ 
+ 
+                 else 
+                 { 
+                     if (speechRecognitionResult.Text == "Welche Orte gibt es in meiner Nähe?" || speechRecognitionResult.Text == "Welche Orte genau?" ||
+                         speechRecognitionResult.Text == "Welche sind diese?" || speechRecognitionResult.Text == "Welche Orte?" || 
+                         speechRecognitionResult.Text == "Welcher ist dieser?") 
+                     {
+                        string locations = "";
+                        foreach(var item in items)
+                        {
+                            if(item == items.First())
+                            {
+                                locations = string.Concat(locations, item.Name);
+                            }
+                            else
+                            {
+                                locations = string.Concat(locations," und ", item.Name);
+                            }
+                            
+                      
+                        }
+                        Debug.WriteLine(locations);
+                        await SpeakText(locations);
+                    } 
+                 } 
+             } 
+             catch (Exception e) 
+             { 
+                 Debug.WriteLine("Exception: " + e); 
              } 
          }
 
-        
+        private async Task<SpeechRecognitionResult> RecognizeSpeech()
+        {
+            try
+            {
+                if (recognizer == null)
+                {
+                    recognizer = new SpeechRecognizer();
+                    string[] possibleAnswers = { "Welche Orte gibt es in meiner Nähe?", "Welche sind diese?", "Welcher ist dieser?", "Welche Orte?", "Welche Orte genau?" };
+                    var listConstraint = new SpeechRecognitionListConstraint(possibleAnswers, "Answer");
+                    recognizer.UIOptions.ExampleText = @"Bsp. 'Welche Orte gibt es in meiner Nähe?'";
+                    recognizer.Constraints.Add(listConstraint);
 
+                    await recognizer.CompileConstraintsAsync();
+                }
+                SpeechRecognitionResult result = await recognizer.RecognizeWithUIAsync();
+                return result;
+            }
+            catch (Exception exception)
+            {
+                const uint HResultPrivacyStatementDeclined = 0x80045509;
+                if ((uint)exception.HResult == HResultPrivacyStatementDeclined)
+                {
+                    var messageDialog = new Windows.UI.Popups.MessageDialog("You must accept the speech privacy policy");
+                    messageDialog.ShowAsync().GetResults();
+                }
+                else
+                {
+                    Debug.WriteLine("Error: " + exception.Message);
+                }
+            }
+            return null;
+        }
+
+        private async void OnStateChanged(object sender, RoutedEventArgs e)
+        {
+
+            // When media player finished streaming start listening to the user
+            if ((mediaPlayer.CurrentState == MediaElementState.Closed) ||
+            (mediaPlayer.CurrentState == MediaElementState.Stopped) ||
+            (mediaPlayer.CurrentState == MediaElementState.Paused))
+            {
+                mediaPlayer.CurrentStateChanged -= OnStateChanged;
+                await Listen(false);
+            }
+        }
+
+
+        private async void MicroButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Listen(true);
+        }
+        
     }
 }

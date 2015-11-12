@@ -52,5 +52,10 @@ namespace Alterna
             this.Frame.Navigate(typeof(MapPage));
 
         }
+
+        private void MicroButton_Click(object sender, RoutedEventArgs e)
+        {
+          //TODO
+        }
     }
 }
