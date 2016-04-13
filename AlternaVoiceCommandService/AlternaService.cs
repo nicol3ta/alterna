@@ -24,7 +24,7 @@ namespace AlternaVoiceCommandService
 
         private MobileServiceClient MobileService = new MobileServiceClient(
             "https://alternamobileservice.azure-mobile.net/",
-            "LMsohMAovxzQVNyHwgEimanMgjfect72"
+            "key"
         );
 
         public async void Run(IBackgroundTaskInstance taskInstance)

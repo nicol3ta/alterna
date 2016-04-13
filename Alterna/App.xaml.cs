@@ -19,7 +19,7 @@ namespace Alterna
 
         public static MobileServiceClient MobileService = new MobileServiceClient(
             "https://alternamobileservice.azure-mobile.net/",
-            "LMsohMAovxzQVNyHwgEimanMgjfect72"
+            "key"
         );
 
         /// <summary>
@@ -86,10 +86,11 @@ namespace Alterna
 
         private async void RegisterVoiceCommands()
         {
-          StorageFile vcdStorageFile = await Package.Current.InstalledLocation.GetFileAsync(@"Commands.xml");
-          await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdStorageFile);
+            StorageFile vcdStorageFile = await Package.Current.InstalledLocation.GetFileAsync(@"Commands.xml");
+            await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(vcdStorageFile);
 
         }
+      
 
         /// <summary>
         /// Invoked when Navigation to a certain page fails
